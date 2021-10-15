@@ -8,6 +8,7 @@ class cards_recognition {
 
 public:
 	std::vector<Card> run(std::string imagePath);
+	std::vector<Card> run(Mat image);
 
 private:
 	Mat preliminaryProcess(const Mat& input);

@@ -7,4 +7,5 @@ struct Card {
 	char suit;
 	cv::Mat imageColor;
 	cv::Mat imageProcessed;
+	cv::Rect bbox;
 };

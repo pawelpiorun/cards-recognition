@@ -2,9 +2,14 @@
 
 std::vector<Card> cards_recognition::run(std::string imagePath)
 {
+	Mat input = cv::imread(imagePath);
+	return run(input);
+}
+
+std::vector<Card> cards_recognition::run(Mat input)
+{
 	std::vector<Card> cards;
 
-	Mat input = cv::imread(imagePath);
 	Mat image = preliminaryProcess(input);
 	Mat grayImage;
 	cvtColor(image, grayImage, COLOR_BGR2GRAY);
@@ -16,6 +21,7 @@ std::vector<Card> cards_recognition::run(std::string imagePath)
 		and color version to return the original image*/
 		Card newCard;
 		Rect cardRoi = getExtremeRoi(contours[i]);
+		newCard.bbox = Rect(cardRoi.x + 2, cardRoi.y + 2, cardRoi.width, cardRoi.height);
 		Mat cardBoxBinary = separateCard(grayImage, contours, i);
 		cardBoxBinary = cardBoxBinary(cardRoi);
 		Mat cardBoxColor = image(cardRoi).clone();
